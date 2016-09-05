@@ -2,7 +2,7 @@
 
 add_theme_support( 'menus' );
 
-	// Register the 'primary' menu.
+// Register the 'primary' menu.
 function register_theme_menus() {
 	register_nav_menus (
 		array(
@@ -34,7 +34,7 @@ function my_register_sidebars() {
 add_action( 'widgets_init', 'my_register_sidebars' );
 
 
-	// Call the CSS stylesheets.
+// Call the CSS stylesheets.
 
 function wpt_theme_styles() {
 
@@ -57,7 +57,7 @@ function add_my_script() {
 		array('jquery')
 	);
 
-			    }
+}
 
 
 
@@ -164,8 +164,8 @@ function evenements_custom_columns($column)
 			$thumbnail = wp_get_attachment_image_src( $post_image_id, 'post-thumbnail', false);
 			if ($thumbnail) (string)$thumbnail = $thumbnail[0];
 			echo '<img src="';
-		//	echo bloginfo('template_url');
-		//	echo '../../uploads/2016/08/';
+			//	echo bloginfo('template_url');
+			//	echo '../../uploads/2016/08/';
 			echo $thumbnail;
 			echo '" alt="" style="height: 100px;"/>';
 		}
@@ -183,13 +183,13 @@ function evenements_custom_columns($column)
 
 add_action('add_meta_boxes','init_metabox');
 function init_metabox(){
-	  add_meta_box('info_event', 'Informations Evénement', 'info_event', 'evenements', 'normal');
+	add_meta_box('info_event', 'Informations Evénement', 'info_event', 'evenements', 'normal');
 }
 
 function info_event($post){
-	  $date      = get_post_meta($post->ID,'_date',true);
-	  $sortdate   = get_post_meta($post->ID,'_sortdate',true);
-	  $billetterie   = get_post_meta($post->ID,'_billetterie',true);
+	$date      = get_post_meta($post->ID,'_date',true);
+	$sortdate   = get_post_meta($post->ID,'_sortdate',true);
+	$billetterie   = get_post_meta($post->ID,'_billetterie',true);
 ?>
 <label for="date">Date qui apparait sur le site</label><br>
 <input id="date" style="width: 650px;" type="text" name="date" value="<?php echo $date; ?>" /><br>
@@ -251,7 +251,7 @@ function my_theme_options( $wp_customize ) {
 add_action( 'wp_head' , 'my_dynamic_css' );
 
 function my_dynamic_css() {
-		?>
+?>
 	<style type='text/css'>
 	#volet {
 		background-color:<?php echo get_theme_mod('mytheme_color') ?> ;
@@ -263,7 +263,40 @@ function my_dynamic_css() {
 		color:<?php echo get_theme_mod('mytheme_color') ?> ;
 	}
 	</style>
-	<?php
+<?php
 }
+
+//Custom title on homepage
+
+add_filter( 'wp_title', 'wpdocs_hack_wp_title_for_home' );
+
+/**
+ * Customize the title for the home page, if one is not set.
+ *
+ * @param string $title The original title.
+ * @return string The title to use.
+ */
+function wpdocs_hack_wp_title_for_home( $title )
+{
+	if ( empty( $title ) && ( is_home() || is_front_page() ) ) {
+		$title = __( 'La Condition Publique' ) . ' | ' . get_bloginfo( 'description' );
+	}
+	return $title;
+}
+
+
+// !!! SECURITE !!!
+
+
+//Désactiver l'éditeur de texte dans l'espace admin
+
+define('DISALLOW_FILE_EDIT',true);
+
+//Masquer la version de Wordpress utilisée
+remove_action("wp_head", "wp_generator");
+
+//Masquer les messages d'erreur
+add_filter('login_errors',create_function('$a', "return null;"));
+
 
 ?>
