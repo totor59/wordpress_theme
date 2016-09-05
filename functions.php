@@ -189,15 +189,12 @@ function init_metabox(){
 function info_event($post){
 	  $date      = get_post_meta($post->ID,'_date',true);
 	  $sortdate   = get_post_meta($post->ID,'_sortdate',true);
-	  $horaires   = get_post_meta($post->ID,'_horaires',true);
 	  $billetterie   = get_post_meta($post->ID,'_billetterie',true);
 ?>
 <label for="date">Date qui apparait sur le site</label><br>
 <input id="date" style="width: 650px;" type="text" name="date" value="<?php echo $date; ?>" /><br>
 <label for="sortdate">Date au format yyyymmdd</label><br>
 <input id="sortdate" style="width: 650px;" type="text" name="sortdate" value="<?php echo $sortdate; ?>" /><br>
-<label for="horaires">Horaires de l'événement</label><br>
-<input id="horaires" style="width: 650px;" type="text" name="horaires" value="<?php echo $horaires; ?>" /><br>
 <label for="billetterie">Collez ici le lien billetterie de l'événement</label><br>
 <input id="billetterie" style="width: 650px;" type="text" name="billetterie" value="<?php echo $billetterie; ?>" /><br>
 
@@ -212,16 +209,13 @@ function save_metabox($post_id){
 	if(isset($_POST['sortdate'])){
 		update_post_meta($post_id, '_sortdate', sanitize_text_field($_POST['sortdate']));
 	}
-	if(isset($_POST['horaires'])){
-		update_post_meta($post_id, '_horaires', sanitize_text_field($_POST['horaires']));
-	}
 	if(isset($_POST['billetterie'])){
 		update_post_meta($post_id, '_billetterie', sanitize_text_field($_POST['billetterie']));
 	}
 
 }
 
-//Customize Background Color
+//Customize Background Color --- Plugin "Réglages couleur"
 
 add_action( 'customize_register' , 'my_theme_options' );
 
@@ -271,15 +265,5 @@ function my_dynamic_css() {
 	</style>
 	<?php
 }
-add_action( 'customize_preview_init' , 'my_customizer_preview' );
-function my_customizer_preview() {
-	wp_enqueue_script(
-		'my_theme_customizer',
-		get_template_directory_uri() . '/js/theme-customizer.js',
-		array(  'jquery', 'customize-preview' ),
-		'',
-		true
-	);
 
-}
 ?>

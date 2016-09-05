@@ -79,16 +79,19 @@ if ( $slides->have_posts()) : ?>
 
  <!-- Actus&Labos -->
    <!-- Actus -->
-	 <?php
-	 	$args = array(
-	 		'post_type' => array( 'post', 'evenements'),
-	 		'category_name'=> 'actu',
-	 		'post_per_page' => 1,
-	 	);
+<?php
+	$args = array(
+		'post_type' => array( 'post', 'evenements'),
+		'category_name'=> 'actu',
+		'post_per_page' => 1,
+		"meta_key" => "_sortdate",
+		"orderby" => "meta_value",
+		"order" => "ASC"
+	);
 
-	 $actu = new WP_Query( $args);
+$actu = new WP_Query( $args);
 
-	 if ( $actu->have_posts()) : ?>
+if ( $actu->have_posts()) : ?>
 
 
 
@@ -100,7 +103,7 @@ if ( $slides->have_posts()) : ?>
 
        <figure class="actus">
 	 <figcaption class="text-primary">
-	 <p class="bold"><span class="heavy"><?php echo get_post_meta($post->ID, 'Date de l événement', true ); ?></span><br><?php the_title( ); ?><br></p>
+	 <p class="bold"><span class="heavy"><?php echo get_post_meta($post->ID, '_date', true ); ?></span><br><?php the_title( ); ?><br></p>
 	 </figcaption>
 	 <div class="img-wrapper background-primary">
 	   <a class="actus" href="<?php echo get_permalink(); ?>"><img <?php the_post_thumbnail( 'slides' ); ?> </a>
