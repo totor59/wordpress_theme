@@ -63,7 +63,7 @@ if ( $slides->have_posts()) : ?>
 	 </div>
 
 	  <div class="overlay">
-	    <p class="bold"><?php echo get_post_meta($post->ID, 'Date de l événement', true ); ?></p>
+	    <p class="bold"><?php echo get_post_meta($post->ID, '_date', true ); ?></p>
 	    <h3 class="heavy"><?php the_title( ); ?></h3>
 	    <span class="bold"><?php the_excerpt( ); ?></span>
 	 </div>
@@ -84,7 +84,7 @@ if ( $slides->have_posts()) : ?>
 		'post_type' => array( 'post', 'evenements'),
 		'category_name'=> 'actu',
 		'post_per_page' => 1,
-		"meta_key" => "_sortdate",
+		"meta_key" => "_expiration_date",
 		"orderby" => "meta_value",
 		"order" => "ASC"
 	);
@@ -106,7 +106,7 @@ if ( $actu->have_posts()) : ?>
 	 <p class="bold"><span class="heavy"><?php echo get_post_meta($post->ID, '_date', true ); ?></span><br><?php the_title( ); ?><br></p>
 	 </figcaption>
 	 <div class="img-wrapper background-primary">
-	   <a class="actus" href="<?php echo get_permalink(); ?>"><img <?php the_post_thumbnail( 'slides' ); ?> </a>
+	   <a class="actus" href="<?php echo get_permalink(); ?>"><img <?php the_post_thumbnail( 'slides' ); ?>></a>
 	 </div>
        </figure>
 			   <?php endwhile; ?>
@@ -131,13 +131,15 @@ if ( $labos->have_posts()) : ?>
        <?php while ($labos->have_posts() ) : $labos->the_post(); ?>
 
 	     <figure class="labos">
-			     <figcaption class="text-primary">
-				     <p class="bold"><span class="heavy"><?php echo get_post_meta($post->ID, 'Date de l événement', true ); ?></span><br><?php the_title( ); ?></p>
-					     </figcaption>
-						     <div class="img-wrapper background-primary">
-							       <a href="<?php echo get_permalink(); ?>"><img class="labos" <?php the_post_thumbnail( 'slides' ); ?></a>
-								       </div>
-									     </figure>
+		<figcaption class="text-primary">
+		     <p class="bold"><span class="heavy"><?php echo get_post_meta($post->ID, '_date', true ); ?></span><br><?php the_title( ); ?></p>
+		</figcaption>
+		<div class="img-wrapper background-primary">
+		     <a href="<?php echo get_permalink(); ?>">
+			<img class="labos" <?php the_post_thumbnail( 'slides' ); ?>/>
+		     </a>
+		</div>		
+		     </figure>
   <?php endwhile; ?>
      </div>
    </section>
@@ -149,4 +151,4 @@ if ( $labos->have_posts()) : ?>
 ####################-->
 
 <?php
-get_footer(); ?>
+	get_footer(); ?>

@@ -41,7 +41,7 @@
 
 
 	   <header>
-		   <nav id='cssmenu'>
+		   <nav id='cssmenu' style="font-family:'Kessel 105 bold';">
 
 
 			   <div id="head-mobile"></div>

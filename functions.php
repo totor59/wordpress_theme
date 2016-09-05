@@ -102,7 +102,7 @@ function cpt_init() {
 		'show_ui' => true,
 		'show_in_menu' => true,
 		'menu_position' => 5,
-
+	
 		'show_in_nav_menus' => true,
 		'publicly_queryable' => true,
 		'exclude_from_search' => false,
@@ -128,6 +128,7 @@ function evenements_edit_columns($columns) {
 		"tf_col_ev_date" => "Date",
 		"tf_col_ev_desc" => "Description",
 		"tf_col_ev_thumb" => "Thumbnail",
+
 
 	);
 	return $columns;
@@ -167,7 +168,7 @@ function evenements_custom_columns($column)
 			//	echo bloginfo('template_url');
 			//	echo '../../uploads/2016/08/';
 			echo $thumbnail;
-			echo '" alt="" style="height: 100px;"/>';
+			echo '" alt="" style="height: 60px;"/>';
 		}
 		break;
 		case "tf_col_ev_desc";
@@ -188,15 +189,16 @@ function init_metabox(){
 
 function info_event($post){
 	$date      = get_post_meta($post->ID,'_date',true);
-	$sortdate   = get_post_meta($post->ID,'_sortdate',true);
+	$expiration_date   = get_post_meta($post->ID,'_expiration_date',true);
 	$billetterie   = get_post_meta($post->ID,'_billetterie',true);
 ?>
 <label for="date">Date qui apparait sur le site</label><br>
 <input id="date" style="width: 650px;" type="text" name="date" value="<?php echo $date; ?>" /><br>
-<label for="sortdate">Date au format yyyymmdd</label><br>
-<input id="sortdate" style="width: 650px;" type="text" name="sortdate" value="<?php echo $sortdate; ?>" /><br>
+<label for="expiration_date">Date de l'événement au format yyyymmdd</label><br>
+<input id="expiration_date" style="width: 650px;" type="text" name="expiration_date" value="<?php echo $expiration_date; ?>" /><br>
 <label for="billetterie">Collez ici le lien billetterie de l'événement</label><br>
 <input id="billetterie" style="width: 650px;" type="text" name="billetterie" value="<?php echo $billetterie; ?>" /><br>
+<label for="billetterie">Collez ici le lien billetterie de l'événement</label><br>
 
 <?php
 }
@@ -206,8 +208,8 @@ function save_metabox($post_id){
 	if(isset($_POST['date'])){
 		update_post_meta($post_id, '_date', sanitize_text_field($_POST['date']));
 	}
-	if(isset($_POST['sortdate'])){
-		update_post_meta($post_id, '_sortdate', sanitize_text_field($_POST['sortdate']));
+	if(isset($_POST['expiration_date'])){
+		update_post_meta($post_id, '_expiration_date', sanitize_text_field($_POST['expiration_date']));
 	}
 	if(isset($_POST['billetterie'])){
 		update_post_meta($post_id, '_billetterie', sanitize_text_field($_POST['billetterie']));
@@ -262,6 +264,14 @@ function my_dynamic_css() {
 	#changelink:hover {
 		color:<?php echo get_theme_mod('mytheme_color') ?> ;
 	}
+	#cssmenu> ul> li:hover> a, #cssmenu ul li.active a {
+	color: <?php echo get_theme_mod('mytheme_color') ?>;
+	}
+	@media only screen and (max-width : 1200px) {
+	#cssmenu ul, #cssmenu .submenu-button  {
+	background-color:  <?php echo get_theme_mod('mytheme_color') ?>;
+}
+}
 	</style>
 <?php
 }

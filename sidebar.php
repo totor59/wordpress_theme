@@ -1,25 +1,25 @@
 <?php
 $args = array(
-	'post_type'     => 'evenements',
-	'category_name'=> 'agenda',
-	'post_per_page' => 1,
-	"meta_key" => "_sortdate",
-	"orderby" => "meta_value",
-	"order" => "ASC"
-);
-
-
+		'post_type' => 'evenements',
+		'category_name'=> 'agenda',
+		'post_per_page' => 1,
+		"meta_key" => "_expiration_date",
+		"orderby" => "meta_value",
+		"order" => "ASC"
+	);
 $agenda = new WP_Query( $args );
 
+
 if ( $agenda->have_posts()) :
-?>
+ ?>
+
 
  <div id="volet" id="primary-sidebar" class= "text-primary background-secondary">
 		     <ul id="agenda">
 			    <li><h1 class="heavy">AGENDA:</h1></li>
        <?php while ($agenda->have_posts() ) : $agenda->the_post(); ?>
 <a href="<?php echo get_permalink(); ?>">
-    <li><h3 class="bold"><?php echo get_post_meta($post->ID, '_date', true ); ?></h3>
+    <li><h3 class="bold"><?php echo get_post_meta($post->ID, "_date", true); ?></h3>
 		    <span class="bold"><?php the_title( ); ?><br><?php the_excerpt(); ?></span></li>
 </a>
    <?php endwhile; ?>
